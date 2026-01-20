@@ -1,0 +1,39 @@
+services:
+  mongo_plab:
+    image: mongo:7
+    container_name: mongo_plab
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=nikelroot
+      - MONGO_INITDB_ROOT_PASSWORD=48151623MongoDB42
+      - NODE_ENV=production
+      - TZ=Asia/Yekaterinburg
+    command: [
+        'mongod',
+        '--bind_ip_all',
+        '--wiredTigerCacheSizeGB=3', # ~25–35% от лимита памяти
+        '--setParameter=ttlMonitorSleepSecs=60' # реже будить TTL-монитор (опционально)
+      ]
+    volumes:
+      - ./a_db7:/data/db
+    #      - /etc/localtime:/etc/localtime:ro
+    #      - /etc/timezone:/etc/timezone:ro
+    restart: always
+    ports:
+      - '27017:27017' # по возможности закрой наружу (см. ниже)
+    #    networks:
+    #      plab:
+    #      main:
+    #        ipv4_address: 192.168.28.3
+    #        mac_address: 92:42:3b:df:3b:24
+    mem_limit: 6g # лимит памяти контейнера
+    memswap_limit: 6g # запретить уходить в своп
+    ulimits:
+      nofile:
+        soft: 64000
+        hard: 64000
+
+networks:
+  main:
+    external: true
+  plab:
+    external: true
