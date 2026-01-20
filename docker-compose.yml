@@ -20,11 +20,11 @@ services:
     restart: always
     ports:
       - '27017:27017' # по возможности закрой наружу (см. ниже)
-    #    networks:
-    #      plab:
-    #      main:
-    #        ipv4_address: 192.168.28.3
-    #        mac_address: 92:42:3b:df:3b:24
+    networks:
+      abook:
+      main:
+        ipv4_address: 192.168.28.5
+        # mac_address: 92:42:3b:df:3b:24
     mem_limit: 6g # лимит памяти контейнера
     memswap_limit: 6g # запретить уходить в своп
     ulimits:
@@ -35,5 +35,5 @@ services:
 networks:
   main:
     external: true
-  plab:
+  abook:
     external: true
