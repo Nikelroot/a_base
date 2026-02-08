@@ -1,7 +1,7 @@
 services:
-  mongo_plab:
-    image: mongo:7
-    container_name: mongo_plab
+  mongo_abook:
+    image: mongo:8.0.17
+    container_name: mongo_abook
     environment:
       - MONGO_INITDB_ROOT_USERNAME=nikelroot
       - MONGO_INITDB_ROOT_PASSWORD=48151623MongoDB42
@@ -18,15 +18,13 @@ services:
     #      - /etc/localtime:/etc/localtime:ro
     #      - /etc/timezone:/etc/timezone:ro
     restart: always
-    ports:
-      - '27017:27017' # по возможности закрой наружу (см. ниже)
     networks:
       abook:
       main:
-        ipv4_address: 192.168.28.5
-        # mac_address: 92:42:3b:df:3b:24
-    mem_limit: 6g # лимит памяти контейнера
-    memswap_limit: 6g # запретить уходить в своп
+        ipv4_address: 192.168.28.11
+        mac_address: 3e:2f:83:b2:5b:ef
+    mem_limit: 1g # лимит памяти контейнера
+    memswap_limit: 1g # запретить уходить в своп
     ulimits:
       nofile:
         soft: 64000
